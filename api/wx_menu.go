@@ -49,6 +49,18 @@ func WxMenu(rpn http.ResponseWriter, req *http.Request) {
 		var buttons []*menu.Button
 		body, _ := io.ReadAll(req.Body)
 		sonic.Unmarshal(body, &buttons)
+		buttons := []*menu.Button{
+		{
+			Name: "点击按钮",
+			Type: "click",
+			Key:  "CLICK_BUTTON",
+		},
+		{
+			Name: "跳转链接",
+			Type: "view",
+			URL:  "https://www.example.com", // 替换为你的跳转URL
+		},
+	}
 		err := wxMenu.SetMenu(buttons)
 		if err != nil {
 			rpn.Write([]byte(err.Error()))
